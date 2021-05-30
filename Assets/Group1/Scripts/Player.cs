@@ -14,16 +14,20 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Enemy>(out Enemy enemy))
-            Destroy(enemy.gameObject);
+        {
+            enemy.Die();
+        }
         else if (collision.TryGetComponent<Booster>(out Booster booster))
+        {
             StartCoroutine(UseBooster(booster));
+            Destroy(booster.gameObject);
+        }
     }
 
     private IEnumerator UseBooster(Booster booster)
     {
-        _speed *= 2;
-        Destroy(booster.gameObject);
+        _speed *= booster.SpeedIncreaseMultiplier;
         yield return new WaitForSeconds(booster.Duration);
-        _speed /= 2;
+        _speed /= booster.SpeedIncreaseMultiplier;
     }
 }
