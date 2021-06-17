@@ -14,14 +14,14 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {   
-        InitializeTargetPosition();
+        SetTargetPosition();
     }
 
     private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.deltaTime);
         if (transform.position == _targetPosition)
-            InitializeTargetPosition();
+            SetTargetPosition();
     }
 
     public void Die()
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void InitializeTargetPosition()
+    private void SetTargetPosition()
     {
         _targetPosition = Random.insideUnitCircle * _locationRadius;
     }

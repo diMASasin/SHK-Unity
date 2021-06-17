@@ -8,17 +8,17 @@ public class GameOver : MonoBehaviour
     [SerializeField] private Player _player;
 
     private Enemy[] _enemies;
-    private int _enemiesCounter;
+    private int _enemyCount;
 
     private void OnEnable()
     {
         _enemies = FindObjectsOfType<Enemy>();
 
-        _enemiesCounter = 0;
+        _enemyCount = 0;
         foreach (var enemy in _enemies)
         {
             enemy.EnemyDied += OnEnemyDied;
-            _enemiesCounter++;
+            _enemyCount++;
         }
     }
 
@@ -30,9 +30,9 @@ public class GameOver : MonoBehaviour
 
     private void OnEnemyDied(Enemy enemy)
     {
-        _enemiesCounter--;
+        _enemyCount--;
 
-        if(_enemiesCounter <= 0)
+        if(_enemyCount <= 0)
         {
             _endGameScreen.SetActive(true);
             _player.enabled = false;
